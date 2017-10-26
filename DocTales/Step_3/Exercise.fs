@@ -3,9 +3,12 @@
 (*
 //If you want to execute part of this file in the REPL, you must first load the following files:
 #load "../Blank.fs"
+#load "../String.fs"
 #load "../Output.fs"
 #load "Document.fs"
 #load "HtmlRenderer.fs"
+
+open Step3
 
 #r "../../packages/NUnit/lib/nunit.framework.dll"
 #load "../../paket-files/forki/FsUnit/FsUnit.fs"
