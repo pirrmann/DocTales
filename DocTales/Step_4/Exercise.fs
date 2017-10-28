@@ -21,13 +21,11 @@ open Step4
 // this run function is called in Program.fs if you execute the application
 let run () =
     [
-        Text.Block "We are now able to have text blocks and lists with styles:"
+        Text.Block "We are now able to have text blocks and lists with CUSTOM styles:"
         List [
             Text.Regular "regular"
             Text.Medium "medium"
             Text.Strong "strong"
             Text [{ TextPart.Regular "with an horrible flashy style" with Style = Some "flashy" }]
         ]
-        Text.Block "We also have shortcuts to make it easier to generate simple"
-        Text.List ["lists"; "of"; "values"]
     ] |> Output.writeFile HtmlRenderer.toHtml true

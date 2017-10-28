@@ -21,6 +21,9 @@ open FsUnit
 let [<Test>] ``Rendering a simple text part produces the text`` () =
     { Text = "text"; Emphasis=Regular } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "text"
 
+let [<Test>] ``Rendering a text part with empasis applies a style`` () =
+    { Text = "text"; Emphasis=Medium } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "<span class=\"em-medium\">text</span>"
+
 // this run function is called in Program.fs if you execute the application
 let run () =
     [

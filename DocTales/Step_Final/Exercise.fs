@@ -35,7 +35,6 @@ This is a test
 ---
 
 Hello **students**, I'm **very** happy to be here today...
-
 *and I hope you're happy too!*
 
 I have serious doubts we'll get to this point, but if that's the case, you can all be **very** proud.
