@@ -9,24 +9,29 @@
 #load "HtmlRenderer.fs"
 
 open Step1
-
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#load "../../paket-files/forki/FsUnit/FsUnit.fs"
 *)
 
-type Test = NUnit.Framework.TestAttribute
-open FsUnit
+open Expecto
+
+let shouldEqual expected actual =
+  Expect.equal actual expected "Values should be equal"
 
 // You can write tests and/or work with the REPL
-let [<Test>] ``Rendering a simple text part produces the text`` () =
-    { Text = "text"; Emphasis=Regular } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "text"
+[<Tests>]
+let tests =
+    testList "Step 1" [
+        test "Rendering a simple text part produces the text" {
+            { Text = "text"; Emphasis=Regular } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "text"
+        }
 
-let [<Test>] ``Rendering a text part with empasis applies a style`` () =
-    { Text = "text"; Emphasis=Medium } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "<span class=\"em-medium\">text</span>"
+        test "Rendering a text part with emphasis applies a style" {
+            { Text = "text"; Emphasis=Medium } |> HtmlRenderer.toHtml |> String.concat |> shouldEqual "<span class=\"em-medium\">text</span>"
+        }
+    ]
 
 // this run function is called in Program.fs if you execute the application
 let run () =
     [
         { Text = "Hello "; Emphasis=Regular }
         { Text = "World"; Emphasis=Strong }
-    ] |> Output.writeFile HtmlRenderer.toHtml true
+    ] |> Output.writeFile HtmlRenderer.toHtml

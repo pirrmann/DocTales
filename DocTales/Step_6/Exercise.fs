@@ -9,14 +9,15 @@
 #load "HtmlRenderer.fs"
 
 open Step6
-
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#load "../../paket-files/forki/FsUnit/FsUnit.fs"
 *)
 
-type Test = NUnit.Framework.TestAttribute
-open FsUnit
-open Step6
+open Expecto
+
+let shouldEqual expected actual =
+  Expect.equal actual expected "Values should be equal"
+
+// You can write tests and/or work with the REPL
+// However, I don't write the tests myself anymore, that's up to you
 
 // this run function is called in Program.fs if you execute the application
 let run () =
@@ -25,4 +26,4 @@ let run () =
     [
         // Here I'd like a nice syntax in order to represent tabular data...
         // While you're at it you may as well add support for RowSpan & ColSpan
-    ] |> Output.writeFile HtmlRenderer.toHtml true
+    ] |> Output.writeFile HtmlRenderer.toHtml

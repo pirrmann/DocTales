@@ -9,14 +9,15 @@
 #load "HtmlRenderer.fs"
 
 open Step5
-
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#load "../../paket-files/forki/FsUnit/FsUnit.fs"
 *)
 
-type Test = NUnit.Framework.TestAttribute
-open FsUnit
-open Step5
+open Expecto
+
+let shouldEqual expected actual =
+  Expect.equal actual expected "Values should be equal"
+
+// You can write tests and/or work with the REPL
+// However, I don't write the tests myself anymore, that's up to you
 
 // this run function is called in Program.fs if you execute the application
 let run () =
@@ -27,4 +28,4 @@ let run () =
         // - sections (which should generate divs)
         // - single titled section (basically a div with a title at the beginning)
         // - titled sections (a list of numbered titled sections, generating "ol" elements)
-    ] |> Output.writeFile HtmlRenderer.toHtml true
+    ] |> Output.writeFile HtmlRenderer.toHtml

@@ -1,9 +1,7 @@
 This is a starter project to use in an F# coding exercise working with trees and documents.
 
-It embeds FAKE, Paket, and references to NUnit, as well as @sforkmann's lightweight FsUnit.fs file.
-
-It also references FSharp.Formatting in order to use its Markdown parser.
+It relies on .NET core and references Expecto as a testing library/runner.
 
 Just clone the repo or download it, and get started coding and testing in F#!
 
-To get started, just run build.cmd or ./build.sh in the folder.
+To get started, just dotnet run in the folder to run the program, or dotnet run -- tests in order to run Expecto tests.

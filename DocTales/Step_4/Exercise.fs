@@ -9,14 +9,15 @@
 #load "HtmlRenderer.fs"
 
 open Step4
-
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#load "../../paket-files/forki/FsUnit/FsUnit.fs"
 *)
 
-type Test = NUnit.Framework.TestAttribute
-open FsUnit
-open Step4
+open Expecto
+
+let shouldEqual expected actual =
+  Expect.equal actual expected "Values should be equal"
+
+// You can write tests and/or work with the REPL
+// However, I don't write the tests myself anymore, that's up to you
 
 // this run function is called in Program.fs if you execute the application
 let run () =
@@ -28,4 +29,4 @@ let run () =
             Text.Strong "strong"
             Text [{ TextPart.Regular "with an horrible flashy style" with Style = Some "flashy" }]
         ]
-    ] |> Output.writeFile HtmlRenderer.toHtml true
+    ] |> Output.writeFile HtmlRenderer.toHtml

@@ -8,38 +8,48 @@
 #load "Document.fs"
 #load "DocumentComparer.fs"
 #load "HtmlRenderer.fs"
-
-#r "../../packages/FSharp.Formatting/lib/net40/FSharp.Markdown.dll"
-#load "MarkdownParser.fs"
-
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#load "../../paket-files/forki/FsUnit/FsUnit.fs"
 *)
 
 open Document
 open Document.Core
-open FsUnit
 
-let doc1 = """
-This is a test
----
+let doc1 =
+    [
+        TitledSections [
+            {
+                TitledSection.Title = "This is a test"
+                Section = Section.FromParts [
+                    Text.Block "Hello world, I'm happy to be here today"
+                    Block (Text [TextPart.Regular "I have serious doubts we'll get to this point, but if that's the case, you can all be "
+                                 TextPart.Strong "very"
+                                 TextPart.Regular " proud."])
+                    Text.Block "Now, if you manage to do this exercise, that's awesome."
+                ]
+            }
+        ]
+    ]
 
-Hello world, I'm happy to be here today
-
-I have serious doubts we'll get to this point, but if that's the case, you can all be **very** proud.
-
-Now, if you manage to do this exercise, that's awesome.""" |> MarkdownParser.ParseMarkdownSections |> TitledSections |> List.singleton
-
-let doc2 = """
-This is a test
----
-
-Hello **students**, I'm **very** happy to be here today...
-*and I hope you're happy too!*
-
-I have serious doubts we'll get to this point, but if that's the case, you can all be **very** proud.
-Let's try to to that.""" |> MarkdownParser.ParseMarkdownSections |> TitledSections|> List.singleton
+let doc2 =
+    [
+        TitledSections [
+            {
+                TitledSection.Title = "This is a test"
+                Section = Section.FromParts [
+                    Block (Text [TextPart.Regular "Hello "
+                                 TextPart.Strong "students"
+                                 TextPart.Regular ", I'm "
+                                 TextPart.Strong "very"
+                                 TextPart.Regular " happy to be here today..."
+                                 TextPart.Medium "and I hope you're happy too!"])
+                    Block (Text [TextPart.Regular "I have serious doubts we'll get to this point, but if that's the case, you can all be "
+                                 TextPart.Strong "very"
+                                 TextPart.Regular " proud."])
+                    Text.Block "Let's try to do that."
+                ]
+            }
+        ]
+    ]
 
 let run () =
     let mergedDoc = Comparer.getMergedParts doc1 doc2
-    mergedDoc |> Output.writeFile HtmlRenderer.toHtml true
+    mergedDoc |> Output.writeFile HtmlRenderer.toHtml
